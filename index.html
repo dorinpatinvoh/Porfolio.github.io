@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PATINVOH Dorin - Portfolio Développeur Web</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Pour les icônes -->
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="#accueil">PATINVOH Dorin</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#projets">Projets</a></li>
+                <li><a href="#a-propos">À Propos</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Section Accueil -->
+        <section id="accueil" class="section">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h1>Bonjour, je suis PATINVOH Dorin</h1>
+                    <p>Développeur Web Frontend passionné par la création d'expériences numériques intuitives et performantes.</p>
+                    <div class="cta-buttons">
+                        <a href="#projets" class="btn btn-primary">Voir mes Projets</a>
+                        <a href="#contact" class="btn btn-secondary">Contactez-moi</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="images/profil.jpg" alt="Photo de [Votre Nom]">
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Projets -->
+        <section id="projets" class="section">
+            <div class="container">
+                <h2>Mes Projets</h2>
+                <div class="projets-grid">
+                    <!-- Projet 1 -->
+                    <div class="projet-carte">
+                        <img src="images/projet1-cover.jpg" alt="Nom du Projet 1">
+                        <h3>Avant tout</h3>
+                        <p class="projet-role"><strong>Rôle :</strong> Développement Frontend de l'application X</p>
+                        <p class="projet-description">Une application web innovante pour [résoudre quel problème / atteindre quel objectif]. Fonctionnalités clés : [Liste 2-3 fonctionnalités].</p>
+                        <div class="technologies">
+                            <span>HTML</span><span>CSS</span><span>JavaScript</span><span>React</span><span>Node.js</span>
+                        </div>
+                        <div class="projet-liens">
+                            <a href="LIEN_VERS_LE_PROJET_EN_LIGNE_1" target="_blank" class="btn btn-sm">Voir le Projet</a>
+                            <a href="LIEN_VERS_GITHUB_1" target="_blank" class="btn btn-sm btn-github"><i class="fab fa-github"></i> Code Source</a>
+                        </div>
+                    </div>
+
+                    <!-- Projet 2 -->
+                    <div class="projet-carte">
+                        <img src="images/projet2-cover.jpg" alt="Nom du Projet 2">
+                        <h3>Nom du Projet 2</h3>
+                        <p class="projet-role"><strong>Rôle :</strong> Développement Fullstack du site E-commerce Y</p>
+                        <p class="projet-description">Plateforme e-commerce pour [objectif]. Permet aux utilisateurs de [fonctionnalité clé 1] et [fonctionnalité clé 2].</p>
+                        <div class="technologies">
+                            <span>Python</span><span>Django</span><span>PostgreSQL</span><span>Docker</span><span>AWS</span>
+                        </div>
+                        <div class="projet-liens">
+                            <a href="LIEN_VERS_LE_PROJET_EN_LIGNE_2" target="_blank" class="btn btn-sm">Voir le Projet</a>
+                            <a href="LIEN_VERS_GITHUB_2" target="_blank" class="btn btn-sm btn-github"><i class="fab fa-github"></i> Code Source</a>
+                        </div>
+                    </div>
+
+                    <!-- Ajoutez d'autres projets ici -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section À Propos -->
+        <section id="a-propos" class="section">
+            <div class="container">
+                <h2>À Propos de Moi</h2>
+                <div class="a-propos-contenu">
+                    <img src="images/profil.jpg" alt="Photo de [Votre Nom]" class="a-propos-img">
+                    <div>
+                        <p>Passionné par le développement web depuis [X années / vos débuts], j'ai toujours été fasciné par la manière dont la technologie peut transformer des idées en solutions concrètes et utiles. Mon parcours m'a permis de [mentionner une expérience clé ou une compétence développée].</p>
+                        <p>Ce qui me motive, c'est de relever des défis techniques, d'apprendre continuellement et de collaborer avec des équipes pour créer des produits qui ont un impact positif. J'accorde une grande importance à la qualité du code, à l'expérience utilisateur et à la performance.</p>
+                        <p>En dehors du code, j'aime [vos hobbies ou intérêts].</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Contact -->
+        <section id="contact" class="section">
+            <div class="container">
+                <h2>Contactez-moi</h2>
+                <p>Intéressé(e) par une collaboration ou vous avez une question ? N'hésitez pas à me contacter.</p>
+                <div class="contact-wrapper">
+                    <form id="contact-form" action="https://formspree.io/f/VOTRE_ID_FORMSPREE" method="POST">
+                        <div class="form-group">
+                            <label for="name">Nom :</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email :</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message :</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Envoyer</button>
+                    </form>
+                    <div class="contact-info">
+                        <h3>Mes Coordonnées</h3>
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:votre.email@example.com">votre.email@example.com</a></p>
+                        <p><i class="fab fa-linkedin"></i> <a href="LIEN_VERS_VOTRE_PROFIL_LINKEDIN" target="_blank">LinkedIn</a></p>
+                        <p><i class="fab fa-github"></i> <a href="LIEN_VERS_VOTRE_PROFIL_GITHUB" target="_blank">GitHub</a></p>
+                        <!-- <p><i class="fas fa-phone"></i> +33 6 00 00 00 00 (Optionnel)</p> -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© <span id="currentYear"></span> [Votre Nom]. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

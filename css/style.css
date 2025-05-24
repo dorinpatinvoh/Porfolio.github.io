@@ -1,0 +1,450 @@
+/* Variables CSS (optionnel mais pratique) */
+:root {
+    --primary-color: #007bff; /* Bleu primaire */
+    --secondary-color: #6c757d; /* Gris secondaire */
+    --light-color: #f8f9fa; /* Couleur claire pour fond */
+    --dark-color: #343a40; /* Couleur foncée pour texte */
+    --text-color: #212529;
+    --nav-height: 70px;
+    --font-family: 'Arial', sans-serif; /* Choisissez votre police */
+}
+
+/* Reset et styles globaux */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Navigation fluide */
+}
+
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: #fff; /* Fond blanc par défaut */
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section {
+    padding: 60px 0;
+}
+
+.section:nth-child(even) { /* Alternance de fond pour les sections */
+    background-color: var(--light-color);
+}
+
+h1, h2, h3 {
+    margin-bottom: 20px;
+    color: var(--dark-color);
+}
+
+h1 { font-size: 2.8em; }
+h2 { font-size: 2.2em; text-align: center; }
+h3 { font-size: 1.5em; }
+
+p {
+    margin-bottom: 15px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+a:hover {
+    color: darken(var(--primary-color), 10%);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Header et Navigation */
+header {
+    background-color: #fff;
+    color: var(--dark-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky; /* Barre de navigation fixe */
+    top: 0;
+    z-index: 1000;
+    height: var(--nav-height);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+nav .logo a {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--dark-color);
+}
+
+nav .nav-links {
+    display: flex;
+    list-style: none;
+}
+
+nav .nav-links li {
+    margin-left: 25px;
+}
+
+nav .nav-links a {
+    color: var(--dark-color);
+    font-weight: 500;
+    padding: 5px 0;
+    position: relative;
+}
+
+nav .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+nav .nav-links a:hover::after,
+nav .nav-links a.active::after { /* Style pour le lien actif (JS) */
+    width: 100%;
+}
+
+.burger {
+    display: none; /* Caché sur desktop */
+    cursor: pointer;
+}
+
+.burger div {
+    width: 25px;
+    height: 3px;
+    background-color: var(--dark-color);
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+/* Section Accueil (Hero) */
+#accueil {
+    min-height: calc(100vh - var(--nav-height)); /* Hauteur plein écran moins la nav */
+    display: flex;
+    align-items: center;
+    background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('../images/hero-bg.jpg') no-repeat center center/cover; /* Optionnel : image de fond */
+    /* Si pas d'image de fond, juste : background-color: var(--light-color); */
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.hero-text {
+    flex: 1;
+}
+
+.hero-text h1 {
+    margin-bottom: 10px;
+}
+
+.hero-text p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.hero-image {
+    flex-basis: 300px; /* Taille de l'image de profil */
+    flex-shrink: 0;
+}
+
+.hero-image img {
+    border-radius: 50%; /* Pour une image de profil ronde */
+    border: 5px solid var(--primary-color);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.cta-buttons .btn {
+    margin-right: 10px;
+}
+
+/* Boutons */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: darken(var(--primary-color), 10%);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: darken(var(--secondary-color), 10%);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.btn-sm {
+    padding: 8px 15px;
+    font-size: 0.9em;
+}
+
+.btn-github i {
+    margin-right: 5px;
+}
+
+/* Section Projets */
+.projets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.projet-carte {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    overflow: hidden; /* Pour que le border-radius s'applique à l'image */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.projet-carte:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.projet-carte img {
+    width: 100%;
+    height: 200px; /* Hauteur fixe pour les images de projet */
+    object-fit: cover; /* Assure que l'image couvre bien sans se déformer */
+}
+
+.projet-carte h3 {
+    padding: 15px 20px 5px;
+    color: var(--primary-color);
+}
+
+.projet-carte .projet-role {
+    padding: 0 20px 10px;
+    font-size: 0.9em;
+    color: var(--secondary-color);
+}
+
+.projet-carte .projet-description {
+    padding: 0 20px 15px;
+    font-size: 0.95em;
+    flex-grow: 1; /* Pour que la description prenne l'espace restant */
+}
+
+.technologies {
+    padding: 0 20px 15px;
+}
+
+.technologies span {
+    display: inline-block;
+    background-color: var(--light-color);
+    color: var(--secondary-color);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.projet-liens {
+    padding: 0 20px 20px;
+    display: flex;
+    gap: 10px;
+}
+
+/* Section À Propos */
+.a-propos-contenu {
+    display: flex;
+    align-items: flex-start; /* Aligne l'image et le texte en haut */
+    gap: 30px;
+}
+
+.a-propos-img {
+    width: 200px; /* Taille de l'image */
+    height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0; /* Empêche l'image de rétrécir */
+}
+
+/* Section Contact */
+.contact-wrapper {
+    display: flex;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+#contact-form {
+    flex: 2; /* Le formulaire prend plus de place */
+}
+
+.contact-info {
+    flex: 1;
+}
+
+.contact-info h3 {
+    margin-bottom: 15px;
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+.contact-info p i {
+    margin-right: 10px;
+    color: var(--primary-color);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.form-group textarea {
+    resize: vertical; /* Permet de redimensionner verticalement */
+}
+
+/* Footer */
+footer {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px; /* Pour un peu d'espace avant le footer */
+}
+
+/* Responsive (Menu Burger pour mobile) */
+@media screen and (max-width: 768px) {
+    .nav-links {
+        position: absolute;
+        right: 0px;
+        height: calc(100vh - var(--nav-height));
+        top: var(--nav-height);
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 60%;
+        transform: translateX(100%);
+        transition: transform 0.5s ease-in;
+        box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    }
+
+    .nav-links li {
+        opacity: 0;
+        margin-left: 0;
+        margin: 20px 0;
+    }
+
+    .nav-links a::after { /* Ajustement pour le menu mobile */
+        background-color: var(--primary-color);
+    }
+
+    .burger {
+        display: block;
+    }
+
+    .nav-active { /* Classe JS pour afficher le menu */
+        transform: translateX(0%);
+    }
+
+    /* Animation des liens du menu burger */
+    @keyframes navLinkFade {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0px);
+        }
+    }
+
+    /* Style pour l'animation du burger (croix) */
+    .toggle .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .toggle .line2 {
+        opacity: 0;
+    }
+    .toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    /* Ajustements pour les sections sur mobile */
+    .hero-content {
+        flex-direction: column-reverse; /* Image en haut, texte en bas */
+        text-align: center;
+    }
+    .hero-image { margin-bottom: 30px; }
+    .cta-buttons { display: flex; flex-direction: column; gap: 10px; align-items: center;}
+    .cta-buttons .btn { width: 80%; }
+
+    .a-propos-contenu {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .a-propos-img { margin-bottom: 20px; }
+
+    .contact-wrapper {
+        flex-direction: column;
+    }
+    .contact-info { margin-top: 30px; text-align: center; }
+}
