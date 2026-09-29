@@ -1,85 +1,139 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Menu Burger
-    const burger = document.querySelector('.burger');
-    const nav = document.querySelector('.nav-links');
-    const navLinks = document.querySelectorAll('.nav-links li');
-
-    if (burger && nav) {
-        burger.addEventListener('click', () => {
-            // Toggle Nav
-            nav.classList.toggle('nav-active');
-
-            // Animate Links
-            navLinks.forEach((link, index) => {
-                if (link.style.animation) {
-                    link.style.animation = '';
-                } else {
-                    link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-                }
-            });
-
-            // Burger Animation
-            burger.classList.toggle('toggle');
-        });
+// ========================================================
+// 1. LA BASE DE DONNÉES DE TES PROJETS (Modifie ici !)
+// ========================================================
+const PROJETS = [
+    {
+        titre: "Avant Tout",
+        categorie: "Frontend", // Utilisé pour les filtres : "Frontend", "Fullstack", "Mobile"
+        role: "Développeur Frontend",
+        description: "Application web interactive permettant la gestion et la priorisation des tâches quotidiennes.",
+        technologies: ["React", "JavaScript", "CSS3", "Vite"],
+        image: "images/projet1-cover.jpg",
+        lienDemo: "https://votre-projet1.vercel.app",
+        lienGithub: "https://github.com/votre-compte/projet-1"
+    },
+    {
+        titre: "E-Commerce Market",
+        categorie: "Fullstack",
+        role: "Développeur Fullstack",
+        description: "Plateforme e-commerce avec panier d'achat, authentification et passerelle de paiement intégrée.",
+        technologies: ["Django", "Python", "PostgreSQL", "Tailwind"],
+        image: "images/projet2-cover.jpg",
+        lienDemo: "https://votre-projet2.com",
+        lienGithub: "https://github.com/votre-compte/projet-2"
+    },
+    {
+        titre: "Dashboard Analytics",
+        categorie: "Frontend",
+        role: "Frontend & Visualisation",
+        description: "Tableau de bord de visualisation de métriques financières avec graphiques temps réel.",
+        technologies: ["React", "Chart.js", "REST API"],
+        image: "images/projet1-cover.jpg",
+        lienDemo: "https://demo.com",
+        lienGithub: "https://github.com/votre-compte/projet-3"
     }
+    // 👉 POUR AJOUTER UN NOUVEAU PROJET PLUS TARD, COPIE UN BLOC ET COLLE-LE ICI !
+];
 
-    // Fermer le menu mobile lorsqu'un lien est cliqué
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (nav.classList.contains('nav-active')) {
-                nav.classList.remove('nav-active');
-                burger.classList.remove('toggle');
-                navLinks.forEach(l => l.style.animation = ''); // Reset animation
-            }
-        });
+// ========================================================
+// 2. FONCTION DE RENDU DYNAMIQUE
+// ========================================================
+const projetsGrid = document.getElementById("projetsGrid");
+
+function afficherProjets(filtre = "all") {
+    // Filtrage des données
+    const projetsFiltres = filtre === "all" 
+        ? PROJETS 
+        : PROJETS.filter(p => p.categorie.toLowerCase() === filtre.toLowerCase());
+
+    // Génération du HTML
+    projetsGrid.innerHTML = projetsFiltres.map(p => `
+        <div class="projet-carte">
+            <img src="${p.image}" alt="${p.titre}" loading="lazy">
+            <div class="projet-corps">
+                <span class="projet-role">${p.role}</span>
+                <h3>${p.titre}</h3>
+                <p class="projet-description">${p.description}</p>
+                <div class="technologies">
+                    ${p.technologies.map(tech => `<span>${tech}</span>`).join("")}
+                </div>
+                <div class="projet-liens">
+                    ${p.lienDemo ? `<a href="${p.lienDemo}" target="_blank" class="btn btn-primary btn-sm">Voir Démo ↗</a>` : ""}
+                    ${p.lienGithub ? `<a href="${p.lienGithub}" target="_blank" class="btn btn-secondary btn-sm"><i class="fab fa-github"></i> Code</a>` : ""}
+                </div>
+            </div>
+        </div>
+    `).join("");
+}
+
+// Initialisation au chargement
+afficherProjets();
+
+// ========================================================
+// 3. GESTION DES FILTRES
+// ========================================================
+const boutonsFiltres = document.querySelectorAll(".filtre-btn");
+
+boutonsFiltres.forEach(btn => {
+    btn.addEventListener("click", () => {
+        // Style actif
+        boutonsFiltres.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        // Filtrage
+        const categorie = btn.getAttribute("data-filter");
+        afficherProjets(categorie);
     });
+});
 
+// ========================================================
+// 4. AUTOMATISATIONS PRATIQUES
+// ========================================================
 
-    // Mise à jour de l'année dans le footer
-    const currentYearSpan = document.getElementById('currentYear');
-    if (currentYearSpan) {
-        currentYearSpan.textContent = new Date().getFullYear();
+// Année actuelle automatique
+document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+// Menu Mobile
+const burger = document.getElementById("burger");
+const navLinks = document.getElementById("navLinks");
+
+burger.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+});
+
+// Fermer le menu après un clic sur un lien
+document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click", () => navLinks.classList.remove("active"));
+});
+
+// Envoi AJAX Formspree (Évite le rechargement et la redirection moche)
+const form = document.getElementById("contact-form");
+const formStatus = document.getElementById("formStatus");
+const btnSubmit = document.getElementById("btnSubmit");
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    btnSubmit.disabled = true;
+    btnSubmit.textContent = "Envoi en cours...";
+
+    const data = new FormData(form);
+    try {
+        const response = await fetch(form.action, {
+            method: form.method,
+            body: data,
+            headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+            formStatus.innerHTML = "<span style='color: #16a34a;'>✓ Message envoyé avec succès ! Je vous répondrai rapidement.</span>";
+            form.reset();
+        } else {
+            formStatus.innerHTML = "<span style='color: #dc2626;'>Une erreur est survenue lors de l'envoi.</span>";
+        }
+    } catch (error) {
+        formStatus.innerHTML = "<span style='color: #dc2626;'>Erreur de connexion.</span>";
+    } finally {
+        btnSubmit.disabled = false;
+        btnSubmit.textContent = "Envoyer le message";
     }
-
-    // Optionnel : Active link highlighting based on scroll position
-    const sections = document.querySelectorAll('section[id]');
-    const navLi = document.querySelectorAll('header nav ul li a');
-
-    window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            // Ajustement pour que la section soit considérée "active" un peu avant d'atteindre le haut
-            if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
-                current = section.getAttribute('id');
-            }
-        });
-
-        navLi.forEach(a => {
-            a.classList.remove('active');
-            if (a.getAttribute('href').substring(1) === current) {
-                a.classList.add('active');
-            }
-        });
-    });
-
-
-    // Optionnel : Soumission du formulaire (si vous n'utilisez pas Formspree ou voulez un retour)
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            // Si vous utilisez Formspree, cette partie n'est pas nécessaire
-            // car Formspree gère la redirection.
-            // Vous pourriez l'utiliser pour afficher un message de succès localement
-            // ou pour une validation JS plus poussée avant l'envoi.
-
-            // Exemple :
-            // e.preventDefault(); // Décommentez si vous gérez l'envoi via AJAX
-            // console.log('Formulaire soumis');
-            // alert('Merci pour votre message ! Je vous répondrai bientôt.');
-            // this.reset(); // Réinitialise le formulaire
-        });
-    }
-
 });
