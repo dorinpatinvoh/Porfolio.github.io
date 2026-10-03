@@ -23,7 +23,7 @@
                 <li><a href="#a-propos">À Propos</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <div class="burger" id="burger">
+            <div class="burger" id="burger" aria-label="Ouvrir le menu" role="button" tabindex="0" aria-expanded="false">
                 <div class="line1"></div>
                 <div class="line2"></div>
                 <div class="line3"></div>
@@ -58,16 +58,111 @@
                     <p class="section-sub">Une sélection de mes travaux récents en développement web et mobile.</p>
                 </div>
 
-                <!-- Filtres dynamiques -->
-                <div class="filtres" id="filtresContainer">
-                    <button class="filtre-btn active" data-filter="all">Tous</button>
-                    <button class="filtre-btn" data-filter="Frontend">Frontend</button>
-                    <button class="filtre-btn" data-filter="Fullstack">Fullstack</button>
-                    <button class="filtre-btn" data-filter="Mobile">Mobile / Autre</button>
+                <div class="filtres" id="filtresContainer" aria-label="Filtrer les projets">
+                    <button class="filtre-btn active" type="button" data-filter="all">Tous</button>
+                    <button class="filtre-btn" type="button" data-filter="Frontend">Frontend</button>
+                    <button class="filtre-btn" type="button" data-filter="Fullstack">Fullstack</button>
+                    <button class="filtre-btn" type="button" data-filter="Mobile">Mobile / Autre</button>
                 </div>
 
-                <!-- C'est JavaScript qui va remplir cette grille automatiquement ! -->
-                <div class="projets-grid" id="projetsGrid"></div>
+                <!-- Espace d'ajout local : le navigateur ne modifie pas les fichiers publiés sur Netlify. -->
+                <details class="gestion-panel" id="gestionProjets">
+                    <summary>
+                        <span><i class="fas fa-folder-plus" aria-hidden="true"></i> Gérer mes projets et mes compétences</span>
+                        <span class="gestion-summary-note">sur ce navigateur</span>
+                    </summary>
+                    <div class="gestion-contenu">
+                        <p class="gestion-intro">Ajoute une capture, une description, tes technologies et le lien GitHub du projet.</p>
+
+                        <div class="gestion-notice" role="note">
+                            <i class="fas fa-circle-info" aria-hidden="true"></i>
+                            <p><strong>À savoir pour Netlify :</strong> le formulaire sauvegarde d’abord dans ce navigateur ; il ne téléverse pas directement sur le serveur. Pour publier tes changements, télécharge le fichier ci-dessous, remplace <code>portfolio-data.json</code> à la racine du dépôt GitHub et pousse le commit : Netlify redéploiera les projets, photos et compétences si ce dépôt y est connecté ; sinon, il faudra lancer un nouveau déploiement. Pour modifier le contenu directement en ligne sans commit manuel, il faudra connecter un CMS ou un service de stockage.</p>
+                        </div>
+
+                        <form id="projectForm" class="gestion-form">
+                            <div class="gestion-grille">
+                                <div class="form-group">
+                                    <label for="projectTitle">Nom du projet <span aria-hidden="true">*</span></label>
+                                    <input id="projectTitle" name="titre" type="text" maxlength="80" placeholder="Ex. Application de réservation" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="projectRole">Ton rôle</label>
+                                    <input id="projectRole" name="role" type="text" maxlength="80" placeholder="Ex. Développeur Frontend">
+                                </div>
+                                <div class="form-group">
+                                    <label for="projectCategory">Catégorie</label>
+                                    <select id="projectCategory" name="categorie">
+                                        <option value="Frontend">Frontend</option>
+                                        <option value="Fullstack">Fullstack</option>
+                                        <option value="Mobile">Mobile / Autre</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="projectTechnologies">Technologies</label>
+                                    <input id="projectTechnologies" name="technologies" type="text" maxlength="160" placeholder="Ex. React, JavaScript, CSS">
+                                    <small>Sépare-les par des virgules.</small>
+                                </div>
+                                <div class="form-group gestion-largeur-complete">
+                                    <label for="projectDescription">Description <span aria-hidden="true">*</span></label>
+                                    <textarea id="projectDescription" name="description" rows="4" maxlength="800" placeholder="Quel problème le projet résout-il ? Qu'as-tu réalisé ?" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="projectGithub">Lien GitHub <span aria-hidden="true">*</span></label>
+                                    <input id="projectGithub" name="github" type="url" inputmode="url" placeholder="https://github.com/nom/projet" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="projectDemo">Lien de démonstration <span class="label-optionnel">(facultatif)</span></label>
+                                    <input id="projectDemo" name="demo" type="url" inputmode="url" placeholder="https://mon-projet.netlify.app">
+                                </div>
+                                <div class="form-group gestion-largeur-complete">
+                                    <label for="projectImage">Photo / capture du projet <span aria-hidden="true">*</span></label>
+                                    <input id="projectImage" name="image" type="file" accept="image/png,image/jpeg,image/webp" required>
+                                    <small>JPG, PNG ou WebP — l’image sera réduite pour économiser l’espace de stockage local.</small>
+                                    <div class="image-preview" id="imagePreview" hidden>
+                                        <img id="imagePreviewImg" src="" alt="Aperçu de l’image sélectionnée">
+                                        <span>Aperçu de l’image sélectionnée</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gestion-form-actions">
+                                <button class="btn btn-primary" type="submit" id="addProjectButton"><i class="fas fa-plus" aria-hidden="true"></i> Ajouter à mes projets</button>
+                                <p id="projectFormStatus" class="form-status" role="status" aria-live="polite"></p>
+                            </div>
+                        </form>
+
+                        <div class="gestion-skill-manager">
+                            <div class="gestion-skill-heading">
+                                <h3>Gérer mes compétences</h3>
+                                <p>Ajoute une technologie ou retire une compétence de la liste affichée dans la section « À propos ».</p>
+                            </div>
+                            <div class="skills-chips skills-chips-editor" id="manageSkillsList" aria-label="Gérer les compétences"></div>
+                            <form id="skillForm" class="skill-form">
+                                <label for="skillInput">Ajouter une compétence</label>
+                                <div class="skill-add-row">
+                                    <input id="skillInput" name="skill" type="text" maxlength="40" placeholder="Ex. TypeScript" autocomplete="off" required>
+                                    <button class="btn btn-primary" type="submit"><i class="fas fa-plus" aria-hidden="true"></i> Ajouter</button>
+                                </div>
+                                <p class="skill-help">Les compétences sont enregistrées dans ce navigateur uniquement.</p>
+                                <p id="skillFormStatus" class="form-status" role="status" aria-live="polite"></p>
+                            </form>
+                        </div>
+
+                        <div class="gestion-sauvegarde">
+                            <div>
+                                <h3>Sauvegarder ou restaurer</h3>
+                                <p>Le JSON contient tes projets, les images compressées et tes compétences. Remplace le fichier <code>portfolio-data.json</code> du dépôt par celui téléchargé, puis pousse ton commit pour le publier sur Netlify.</p>
+                            </div>
+                            <div class="gestion-actions">
+                                <button class="btn btn-secondary" type="button" id="exportDataButton"><i class="fas fa-download" aria-hidden="true"></i> Télécharger la sauvegarde</button>
+                                <button class="btn btn-secondary" type="button" id="importDataButton"><i class="fas fa-upload" aria-hidden="true"></i> Importer une sauvegarde</button>
+                                <input id="importDataFile" type="file" accept=".json,application/json" hidden>
+                            </div>
+                            <p id="backupStatus" class="form-status gestion-largeur-complete" role="status" aria-live="polite"></p>
+                        </div>
+                    </div>
+                </details>
+
+                <div class="projets-grid" id="projetsGrid" aria-live="polite"></div>
             </div>
         </section>
 
@@ -82,14 +177,8 @@
                     <div class="a-propos-texte">
                         <p>Passionné par l'écosystème web, j'aime transformer des problèmes complexes en applications élégantes, rapides et intuitives.</p>
                         <p>Mon focus principal est le <strong>Frontend moderne (JavaScript, React, architectures CSS propres)</strong> tout en gardant une compréhension globale des API et du Backend.</p>
-                        <div class="skills-chips">
-                            <span>HTML5 / CSS3</span>
-                            <span>JavaScript (ES6+)</span>
-                            <span>React</span>
-                            <span>Git & GitHub</span>
-                            <span>Responsive Design</span>
-                            <span>UI/UX Design</span>
-                        </div>
+                        <h3 class="skills-title">Mes compétences</h3>
+                        <div class="skills-chips" id="skillsList" aria-label="Compétences"></div>
                     </div>
                 </div>
             </div>
@@ -117,14 +206,14 @@
                             <textarea id="message" name="message" rows="5" placeholder="Parlez-moi de votre besoin..." required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary" id="btnSubmit">Envoyer le message</button>
-                        <div id="formStatus" style="margin-top: 10px; font-weight: 600;"></div>
+                        <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
                     </form>
 
                     <div class="contact-info">
                         <h3>Coordonnées</h3>
-                        <p><i class="fas fa-envelope"></i> <a href="mailto:votre.email@example.com">votre.email@example.com</a></p>
-                        <p><i class="fab fa-linkedin"></i> <a href="LIEN_VERS_VOTRE_PROFIL_LINKEDIN" target="_blank">Profil LinkedIn</a></p>
-                        <p><i class="fab fa-github"></i> <a href="LIEN_VERS_VOTRE_PROFIL_GITHUB" target="_blank">Dépôt GitHub</a></p>
+                        <p><i class="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:votre.email@example.com">votre.email@example.com</a></p>
+                        <p><i class="fab fa-linkedin" aria-hidden="true"></i> <a href="LIEN_VERS_VOTRE_PROFIL_LINKEDIN" target="_blank" rel="noopener noreferrer">Profil LinkedIn</a></p>
+                        <p><i class="fab fa-github" aria-hidden="true"></i> <a href="LIEN_VERS_VOTRE_PROFIL_GITHUB" target="_blank" rel="noopener noreferrer">Dépôt GitHub</a></p>
                     </div>
                 </div>
             </div>
@@ -137,7 +226,6 @@
         </div>
     </footer>
 
-    <!-- Script de chargement dynamique -->
     <script src="js/script.js"></script>
 </body>
 </html>
