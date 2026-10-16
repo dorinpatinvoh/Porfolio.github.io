@@ -1,48 +1,23 @@
 "use strict";
 
-// Les projets ci-dessous servent d'exemples initiaux. Les projets ajoutés depuis
-// le formulaire et les compétences sont conservés localement dans le navigateur.
-const PROJETS_PAR_DEFAUT = [
-    {
-        titre: "Avant Tout",
-        categorie: "Frontend",
-        role: "Développeur Frontend",
-        description: "Application web interactive permettant la gestion et la priorisation des tâches quotidiennes.",
-        technologies: ["React", "JavaScript", "CSS3", "Vite"],
-        image: "images/projet1-cover.jpg",
-        lienDemo: "https://votre-projet1.vercel.app",
-        lienGithub: "https://github.com/votre-compte/projet-1"
-    },
-    {
-        titre: "E-Commerce Market",
-        categorie: "Fullstack",
-        role: "Développeur Fullstack",
-        description: "Plateforme e-commerce avec panier d'achat, authentification et passerelle de paiement intégrée.",
-        technologies: ["Django", "Python", "PostgreSQL", "Tailwind"],
-        image: "images/projet2-cover.jpg",
-        lienDemo: "https://votre-projet2.com",
-        lienGithub: "https://github.com/votre-compte/projet-2"
-    },
-    {
-        titre: "Dashboard Analytics",
-        categorie: "Frontend",
-        role: "Frontend & Visualisation",
-        description: "Tableau de bord de visualisation de métriques financières avec graphiques temps réel.",
-        technologies: ["React", "Chart.js", "REST API"],
-        image: "images/projet1-cover.jpg",
-        lienDemo: "https://demo.com",
-        lienGithub: "https://github.com/votre-compte/projet-3"
-    }
+// Tableau vide : plus AUCUN projet fictif !
+const PROJETS_PAR_DEFAUT = [];
+
+// Tes vraies compétences par défaut
+const COMPETENCES_PAR_DEFAUT = [
+    "Java 21",
+    "Spring Boot 3",
+    "Spring Security",
+    "PostgreSQL",
+    "Angular 17",
+    "PrimeNG",
+    "TypeScript",
+    "API REST / Swagger",
+    "PHP / Laravel",
+    "Git & GitHub"
 ];
 
-const COMPETENCES_PAR_DEFAUT = [
-    "HTML5 / CSS3",
-    "JavaScript (ES6+)",
-    "React",
-    "Git & GitHub",
-    "Responsive Design",
-    "UI/UX Design"
-];
+const CLE_STOCKAGE = "portfolio-patinvoh-v1";
 
 const CLE_STOCKAGE = "portfolio-patinvoh-v1";
 const TAILLE_MAX_IMAGE = 950_000; // taille approximative de l'image encodée
