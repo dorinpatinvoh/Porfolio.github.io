@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PATINVOH Dorin — Développeur Web Frontend</title>
+    <title>PATINVOH Dorin — Développeur Full Stack Java & Angular</title>
+    <meta name="description" content="Portfolio de Dorin PATINVOH, développeur full stack Java, Spring Boot et Angular à Cotonou, Bénin.">
     <!-- Typographie moderne -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,9 +37,9 @@
         <section id="accueil" class="section hero-section">
             <div class="container hero-content">
                 <div class="hero-text">
-                    <span class="badge-dispo"><span class="dot"></span> Disponible pour missions / opportunités</span>
+                    <span class="badge-dispo"><span class="dot"></span> Disponible immédiatement à Cotonou, Bénin</span>
                     <h1>Bonjour, je suis <br><span class="accent">PATINVOH Dorin</span></h1>
-                    <p>Développeur Frontend passionné par la conception d'interfaces modernes, fluides et centrées sur l'expérience utilisateur.</p>
+                    <p>Développeur Full Stack spécialisé en <strong>Java, Spring Boot et Angular</strong>. Je conçois des applications web complètes, de l'analyse du besoin métier jusqu'à l'API REST et la base de données.</p>
                     <div class="cta-buttons">
                         <a href="#projets" class="btn btn-primary">Explorer mes réalisations ↗</a>
                         <a href="#contact" class="btn btn-secondary">Discuter d'un projet</a>
@@ -55,17 +56,17 @@
             <div class="container">
                 <div class="section-header">
                     <h2>Mes Projets Récents</h2>
-                    <p class="section-sub">Une sélection de mes travaux récents en développement web et mobile.</p>
+                    <p class="section-sub">Découvrez une sélection de mes applications web complètes et projets institutionnels.</p>
                 </div>
 
                 <div class="filtres" id="filtresContainer" aria-label="Filtrer les projets">
                     <button class="filtre-btn active" type="button" data-filter="all">Tous</button>
-                    <button class="filtre-btn" type="button" data-filter="Frontend">Frontend</button>
                     <button class="filtre-btn" type="button" data-filter="Fullstack">Fullstack</button>
-                    <button class="filtre-btn" type="button" data-filter="Mobile">Mobile / Autre</button>
+                    <button class="filtre-btn" type="button" data-filter="Frontend">Frontend</button>
+                    <button class="filtre-btn" type="button" data-filter="Backend">Backend / API</button>
                 </div>
 
-                <!-- Espace d'ajout local : le navigateur ne modifie pas les fichiers publiés sur Netlify. -->
+                <!-- Espace d'ajout et de gestion locale -->
                 <details class="gestion-panel" id="gestionProjets">
                     <summary>
                         <span><i class="fas fa-folder-plus" aria-hidden="true"></i> Gérer mes projets et mes compétences</span>
@@ -76,30 +77,30 @@
 
                         <div class="gestion-notice" role="note">
                             <i class="fas fa-circle-info" aria-hidden="true"></i>
-                            <p><strong>À savoir pour Netlify :</strong> le formulaire sauvegarde d’abord dans ce navigateur ; il ne téléverse pas directement sur le serveur. Pour publier tes changements, télécharge le fichier ci-dessous, remplace <code>portfolio-data.json</code> à la racine du dépôt GitHub et pousse le commit : Netlify redéploiera les projets, photos et compétences si ce dépôt y est connecté ; sinon, il faudra lancer un nouveau déploiement. Pour modifier le contenu directement en ligne sans commit manuel, il faudra connecter un CMS ou un service de stockage.</p>
+                            <p><strong>Publication Netlify :</strong> télécharge la sauvegarde JSON, remplace <code>portfolio-data.json</code> à la racine de ton dépôt GitHub et valide le commit pour déployer les modifications.</p>
                         </div>
 
                         <form id="projectForm" class="gestion-form">
                             <div class="gestion-grille">
                                 <div class="form-group">
                                     <label for="projectTitle">Nom du projet <span aria-hidden="true">*</span></label>
-                                    <input id="projectTitle" name="titre" type="text" maxlength="80" placeholder="Ex. Application de réservation" required>
+                                    <input id="projectTitle" name="titre" type="text" maxlength="80" placeholder="Ex. SIGCF" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="projectRole">Ton rôle</label>
-                                    <input id="projectRole" name="role" type="text" maxlength="80" placeholder="Ex. Développeur Frontend">
+                                    <input id="projectRole" name="role" type="text" maxlength="80" placeholder="Ex. Développeur Full Stack">
                                 </div>
                                 <div class="form-group">
                                     <label for="projectCategory">Catégorie</label>
                                     <select id="projectCategory" name="categorie">
-                                        <option value="Frontend">Frontend</option>
                                         <option value="Fullstack">Fullstack</option>
-                                        <option value="Mobile">Mobile / Autre</option>
+                                        <option value="Frontend">Frontend</option>
+                                        <option value="Backend">Backend / API</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="projectTechnologies">Technologies</label>
-                                    <input id="projectTechnologies" name="technologies" type="text" maxlength="160" placeholder="Ex. React, JavaScript, CSS">
+                                    <input id="projectTechnologies" name="technologies" type="text" maxlength="160" placeholder="Ex. Angular 17, Spring Boot 3, PostgreSQL">
                                     <small>Sépare-les par des virgules.</small>
                                 </div>
                                 <div class="form-group gestion-largeur-complete">
@@ -108,7 +109,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="projectGithub">Lien GitHub <span aria-hidden="true">*</span></label>
-                                    <input id="projectGithub" name="github" type="url" inputmode="url" placeholder="https://github.com/nom/projet" required>
+                                    <input id="projectGithub" name="github" type="url" inputmode="url" placeholder="https://github.com/dorinpatinvoh/nom-projet" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="projectDemo">Lien de démonstration <span class="label-optionnel">(facultatif)</span></label>
@@ -117,7 +118,7 @@
                                 <div class="form-group gestion-largeur-complete">
                                     <label for="projectImage">Photo / capture du projet <span aria-hidden="true">*</span></label>
                                     <input id="projectImage" name="image" type="file" accept="image/png,image/jpeg,image/webp" required>
-                                    <small>JPG, PNG ou WebP — l’image sera réduite pour économiser l’espace de stockage local.</small>
+                                    <small>JPG, PNG ou WebP.</small>
                                     <div class="image-preview" id="imagePreview" hidden>
                                         <img id="imagePreviewImg" src="" alt="Aperçu de l’image sélectionnée">
                                         <span>Aperçu de l’image sélectionnée</span>
@@ -133,16 +134,16 @@
                         <div class="gestion-skill-manager">
                             <div class="gestion-skill-heading">
                                 <h3>Gérer mes compétences</h3>
-                                <p>Ajoute une technologie ou retire une compétence de la liste affichée dans la section « À propos ».</p>
+                                <p>Gère la liste des technologies affichée dans la section « À propos ».</p>
                             </div>
                             <div class="skills-chips skills-chips-editor" id="manageSkillsList" aria-label="Gérer les compétences"></div>
                             <form id="skillForm" class="skill-form">
                                 <label for="skillInput">Ajouter une compétence</label>
                                 <div class="skill-add-row">
-                                    <input id="skillInput" name="skill" type="text" maxlength="40" placeholder="Ex. TypeScript" autocomplete="off" required>
+                                    <input id="skillInput" name="skill" type="text" maxlength="40" placeholder="Ex. Spring Security" autocomplete="off" required>
                                     <button class="btn btn-primary" type="submit"><i class="fas fa-plus" aria-hidden="true"></i> Ajouter</button>
                                 </div>
-                                <p class="skill-help">Les compétences sont enregistrées dans ce navigateur uniquement.</p>
+                                <p class="skill-help">Enregistré dans le stockage local du navigateur.</p>
                                 <p id="skillFormStatus" class="form-status" role="status" aria-live="polite"></p>
                             </form>
                         </div>
@@ -150,7 +151,7 @@
                         <div class="gestion-sauvegarde">
                             <div>
                                 <h3>Sauvegarder ou restaurer</h3>
-                                <p>Le JSON contient tes projets, les images compressées et tes compétences. Remplace le fichier <code>portfolio-data.json</code> du dépôt par celui téléchargé, puis pousse ton commit pour le publier sur Netlify.</p>
+                                <p>Télécharge le fichier <code>portfolio-data.json</code> pour pousser tes changements sur GitHub et Netlify.</p>
                             </div>
                             <div class="gestion-actions">
                                 <button class="btn btn-secondary" type="button" id="exportDataButton"><i class="fas fa-download" aria-hidden="true"></i> Télécharger la sauvegarde</button>
@@ -162,7 +163,93 @@
                     </div>
                 </details>
 
-                <div class="projets-grid" id="projetsGrid" aria-live="polite"></div>
+                <!-- Liste des projets réels -->
+                <!-- DANS #projetsGrid -->
+<div class="projets-grid" id="projetsGrid" aria-live="polite">
+    <!-- Projet 1 -->
+    <article class="projet-carte" data-category="Fullstack">
+        <div class="projet-image-wrap">
+            <div class="projet-image-placeholder">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span>SIGCF — Direction Générale des Impôts</span>
+            </div>
+        </div>
+        <div class="projet-corps">
+            <span class="projet-role">Fullstack • Java / Angular</span>
+            <h3>SIGCF (Gestion du Contrôle Fiscal)</h3>
+            <p class="projet-description">Dématérialisation du cycle de contrôle fiscal : PV numériques signés, infractions, gestion des habilitations (RBAC), filtres et notifications.</p>
+            <div class="technologies">
+                <span>Angular 17</span><span>PrimeNG</span><span>Spring Boot 3</span><span>Spring Security</span><span>PostgreSQL</span>
+            </div>
+            <div class="projet-liens">
+                <a href="mailto:dorinpatinvoh@gmail.com?subject=Démonstration%20SIGCF" class="btn btn-secondary btn-sm"><i class="fas fa-envelope"></i> Démo sur demande</a>
+            </div>
+        </div>
+    </article>
+
+    <!-- Projet 2 -->
+    <article class="projet-carte" data-category="Fullstack">
+        <div class="projet-image-wrap">
+            <div class="projet-image-placeholder">
+                <i class="fas fa-book-reader"></i>
+                <span>Gestion de Bibliothèque</span>
+            </div>
+        </div>
+        <div class="projet-corps">
+            <span class="projet-role">Fullstack • Angular / Spring Boot</span>
+            <h3>Gestion de Bibliothèque</h3>
+            <p class="projet-description">Application de gestion des livres, des emprunts et des utilisateurs avec une API REST complète documentée via Swagger.</p>
+            <div class="technologies">
+                <span>Angular</span><span>PrimeNG</span><span>Bootstrap</span><span>Spring Boot</span><span>PostgreSQL</span><span>Swagger</span>
+            </div>
+            <div class="projet-liens">
+                <a href="https://github.com/dorinpatinvoh/Prime_biblio" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fab fa-github"></i> Code GitHub</a>
+            </div>
+        </div>
+    </article>
+
+    <!-- Projet 3 -->
+    <article class="projet-carte" data-category="Fullstack">
+        <div class="projet-image-wrap">
+            <div class="projet-image-placeholder">
+                <i class="fas fa-boxes-stacked"></i>
+                <span>Stockroom</span>
+            </div>
+        </div>
+        <div class="projet-corps">
+            <span class="projet-role">Fullstack • Inventaire</span>
+            <h3>Stockroom</h3>
+            <p class="projet-description">Application de suivi d'inventaire et gestion de stocks développée avec Spring Boot 3 et Angular.</p>
+            <div class="technologies">
+                <span>Angular</span><span>PrimeNG</span><span>Spring Boot</span><span>PostgreSQL</span><span>Swagger</span>
+            </div>
+            <div class="projet-liens">
+                <a href="https://github.com/dorinpatinvoh/mon-projet-test" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fab fa-github"></i> Code GitHub</a>
+            </div>
+        </div>
+    </article>
+
+    <!-- Projet 4 -->
+    <article class="projet-carte" data-category="Fullstack">
+        <div class="projet-image-wrap">
+            <div class="projet-image-placeholder">
+                <i class="fas fa-shirt"></i>
+                <span>Blanchisserie Saint Luc</span>
+            </div>
+        </div>
+        <div class="projet-corps">
+            <span class="projet-role">Fullstack • PHP</span>
+            <h3>Blanchisserie Saint Luc</h3>
+            <p class="projet-description">Projet de fin de Licence : suivi des clients, gestion des commandes et automatisation des tâches administratives.</p>
+            <div class="technologies">
+                <span>PHP</span><span>Bootstrap</span><span>HTML5</span><span>CSS3</span><span>JavaScript</span>
+            </div>
+            <div class="projet-liens">
+                <a href="https://github.com/dorinpatinvoh/blanchisserie" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i class="fab fa-github"></i> Code GitHub</a>
+            </div>
+        </div>
+    </article>
+</div>
             </div>
         </section>
 
@@ -172,15 +259,40 @@
                 <div class="section-header">
                     <h2>À Propos de Moi</h2>
                 </div>
-                <div class="a-propos-contenu">
-                    <img src="images/profil.png" alt="PATINVOH Dorin" class="a-propos-img">
-                    <div class="a-propos-texte">
-                        <p>Passionné par l'écosystème web, j'aime transformer des problèmes complexes en applications élégantes, rapides et intuitives.</p>
-                        <p>Mon focus principal est le <strong>Frontend moderne (JavaScript, React, architectures CSS propres)</strong> tout en gardant une compréhension globale des API et du Backend.</p>
-                        <h3 class="skills-title">Mes compétences</h3>
-                        <div class="skills-chips" id="skillsList" aria-label="Compétences"></div>
-                    </div>
-                </div>
+                <!-- DANS #a-propos -->
+<div class="a-propos-contenu">
+    <img src="images/profil.png" alt="Photo de PATINVOH Dorin" class="a-propos-img">
+    <div class="a-propos-texte">
+        <p>Développeur full stack basé à Cotonou (Bénin), je conçois des applications web complètes, de l'analyse du besoin métier à l'API REST et la base de données. J'ai acquis une solide expérience de terrain en administration publique.</p>
+
+        <h3 class="skills-title">Compétences techniques</h3>
+        <div class="skills-chips" id="skillsList">
+            <span>Java 21</span><span>Spring Boot 3</span><span>Spring Security</span><span>JPA / Hibernate</span><span>PostgreSQL</span><span>API REST / Swagger</span><span>Angular 17</span><span>PrimeNG</span><span>React</span><span>PHP / Laravel</span><span>Git & GitHub</span><span>UML (As-Is / To-Be)</span>
+        </div>
+
+        <h3 class="skills-title">Parcours & Expériences</h3>
+        <ul class="experience-list">
+            <li class="experience-item">
+                <h4>Direction Générale des Impôts (DGI)</h4>
+                <p>Analyse des processus métier et modélisation, développement full stack du SIGCF avec Spring Boot 3, Angular 17 et PostgreSQL.</p>
+            </li>
+            <li class="experience-item">
+                <h4>Ministère de la Culture, des Arts et du Patrimoine (DSI)</h4>
+                <p>Développement d'un système de gestion des fournitures avec Laravel (back-end) et React (front-end).</p>
+            </li>
+            <li class="experience-item">
+                <h4>FUPRO Bénin</h4>
+                <p>Formation des agriculteurs à une plateforme numérique, acquisition d'utilisateurs et suivi des adhérents.</p>
+            </li>
+        </ul>
+
+        <h3 class="skills-title">Formation</h3>
+        <div class="formation-card">
+            <strong>Licence en Systèmes Informatiques et Logiciels</strong> — UATM GASA Formation (2024)<br>
+            <strong>BAC F3 & CAP F3 Électrotechnique</strong> — Lycée Technique de Bohicon (2021)
+        </div>
+    </div>
+</div>
             </div>
         </section>
 
@@ -189,10 +301,10 @@
             <div class="container">
                 <div class="section-header">
                     <h2>Me Contacter</h2>
-                    <p class="section-sub">Un projet, une question ou une opportunité ? Écrivez-moi directement.</p>
+                    <p class="section-sub">Disponible immédiatement pour des opportunités ou missions. Écrivez-moi directement.</p>
                 </div>
                 <div class="contact-wrapper">
-                    <form id="contact-form" action="https://formspree.io/f/VOTRE_ID_FORMSPREE" method="POST">
+                    <form id="contact-form" action="mailto:dorinpatinvoh@gmail.com" method="POST" enctype="text/plain">
                         <div class="form-group">
                             <label for="name">Votre nom</label>
                             <input type="text" id="name" name="name" placeholder="Ex: Jean Dupont" required>
@@ -203,7 +315,7 @@
                         </div>
                         <div class="form-group">
                             <label for="message">Votre message</label>
-                            <textarea id="message" name="message" rows="5" placeholder="Parlez-moi de votre besoin..." required></textarea>
+                            <textarea id="message" name="message" rows="5" placeholder="Parlez-moi de votre opportunité ou besoin..." required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary" id="btnSubmit">Envoyer le message</button>
                         <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
@@ -211,9 +323,11 @@
 
                     <div class="contact-info">
                         <h3>Coordonnées</h3>
-                        <p><i class="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:votre.email@example.com">votre.email@example.com</a></p>
-                        <p><i class="fab fa-linkedin" aria-hidden="true"></i> <a href="LIEN_VERS_VOTRE_PROFIL_LINKEDIN" target="_blank" rel="noopener noreferrer">Profil LinkedIn</a></p>
-                        <p><i class="fab fa-github" aria-hidden="true"></i> <a href="LIEN_VERS_VOTRE_PROFIL_GITHUB" target="_blank" rel="noopener noreferrer">Dépôt GitHub</a></p>
+                        <p><i class="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:dorinpatinvoh@gmail.com">dorinpatinvoh@gmail.com</a></p>
+                        <p><i class="fas fa-phone" aria-hidden="true"></i> <a href="tel:+2290156230406">+229 01 56 23 04 06</a></p>
+                        <p><i class="fab fa-linkedin" aria-hidden="true"></i> <a href="https://linkedin.com/in/patinvoh-dorin" target="_blank" rel="noopener noreferrer">linkedin.com/in/patinvoh-dorin</a></p>
+                        <p><i class="fab fa-github" aria-hidden="true"></i> <a href="https://github.com/dorinpatinvoh" target="_blank" rel="noopener noreferrer">github.com/dorinpatinvoh</a></p>
+                        <p><i class="fas fa-location-dot" aria-hidden="true"></i> Cotonou, Bénin</p>
                     </div>
                 </div>
             </div>
@@ -222,7 +336,7 @@
 
     <footer>
         <div class="container">
-            <p>© <span id="currentYear"></span> PATINVOH Dorin. Développé avec passion.</p>
+            <p>© <span id="currentYear"></span> PATINVOH Dorin — Développeur Full Stack. Tous droits réservés.</p>
         </div>
     </footer>
 
