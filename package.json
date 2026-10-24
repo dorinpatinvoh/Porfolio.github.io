@@ -1,0 +1,9 @@
+{
+  "name": "portfolio-dorin-patinvoh",
+  "private": true,
+  "scripts": {
+    "check": "node --check js/script.js",
+    "test": "node --test tests/portfolio.test.cjs"
+  },
+  "devDependencies": { "playwright": "1.62.1" }
+}

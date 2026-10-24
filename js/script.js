@@ -18,11 +18,9 @@ const COMPETENCES_PAR_DEFAUT = [
 ];
 
 const CLE_STOCKAGE = "portfolio-patinvoh-v1";
-
-const CLE_STOCKAGE = "portfolio-patinvoh-v1";
 const TAILLE_MAX_IMAGE = 950_000; // taille approximative de l'image encodée
 const TAILLE_MAX_SAUVEGARDE = 2_200_000;
-const CATEGORIES = ["Frontend", "Fullstack", "Mobile"];
+const CATEGORIES = ["Frontend", "Fullstack", "Backend", "Mobile"];
 
 function normaliserLienWeb(valeur) {
     if (typeof valeur !== "string" || !valeur.trim()) return "";
@@ -124,7 +122,8 @@ function chargerDonneesLocales() {
     }
 }
 
-const donneesLocales = chargerDonneesLocales();
+const modeEditeur = document.body.dataset.editor === "true";
+const donneesLocales = modeEditeur ? chargerDonneesLocales() : null;
 let projetsAjoutes = donneesLocales ? donneesLocales.projets : [];
 let competences = donneesLocales ? donneesLocales.competences : [...COMPETENCES_PAR_DEFAUT];
 
@@ -156,6 +155,7 @@ function afficherStatut(element, message, type = "info") {
 // Affichage des projets et filtres
 // ========================================================
 const projetsGrid = document.getElementById("projetsGrid");
+const cartesStatiques = projetsGrid ? [...projetsGrid.querySelectorAll(".projet-carte")] : [];
 const tousLesProjets = () => [
     ...PROJETS_PAR_DEFAUT.map(projet => ({ ...projet, local: false })),
     ...projetsAjoutes.map(projet => ({ ...projet, local: true }))
@@ -185,9 +185,12 @@ function afficherProjets(filtre = "all") {
     const projetsFiltres = tousLesProjets().filter(projet =>
         filtre === "all" || projet.categorie.toLocaleLowerCase("fr") === filtre.toLocaleLowerCase("fr")
     );
-    projetsGrid.replaceChildren();
+    projetsGrid.replaceChildren(...cartesStatiques);
+    cartesStatiques.forEach(carte => {
+        carte.hidden = filtre !== "all" && carte.dataset.category !== filtre;
+    });
 
-    if (projetsFiltres.length === 0) {
+    if (projetsFiltres.length === 0 && !cartesStatiques.some(carte => !carte.hidden)) {
         const message = document.createElement("p");
         message.className = "projets-vides";
         message.textContent = "Aucun projet dans cette catégorie pour le moment.";
@@ -212,7 +215,7 @@ function afficherProjets(filtre = "all") {
             icone.className = "far fa-image";
             icone.setAttribute("aria-hidden", "true");
             const texte = document.createElement("span");
-            texte.textContent = "Ajoutez une capture du projet";
+            texte.textContent = projet.titre;
             remplacement.append(icone, texte);
             imageCadre.replaceChildren(remplacement);
         }, { once: true });
@@ -245,7 +248,7 @@ function afficherProjets(filtre = "all") {
         if (projet.lienGithub) {
             liens.appendChild(creerLienProjet(projet.lienGithub, "Code", "btn-secondary", "fab fa-github"));
         }
-        if (projet.local) {
+        if (projet.local && modeEditeur) {
             const supprimer = document.createElement("button");
             supprimer.className = "btn btn-remove btn-sm";
             supprimer.type = "button";
@@ -278,7 +281,8 @@ function supprimerProjet(id) {
 const boutonsFiltres = document.querySelectorAll(".filtre-btn");
 boutonsFiltres.forEach(bouton => {
     bouton.addEventListener("click", () => {
-        boutonsFiltres.forEach(element => element.classList.remove("active"));
+        boutonsFiltres.forEach(element => { element.classList.remove("active"); element.setAttribute("aria-pressed", "false"); });
+        bouton.setAttribute("aria-pressed", "true");
         bouton.classList.add("active");
         afficherProjets(bouton.dataset.filter || "all");
     });
@@ -655,30 +659,71 @@ const contactForm = document.getElementById("contact-form");
 const contactFormStatus = document.getElementById("formStatus");
 const contactSubmitButton = document.getElementById("btnSubmit");
 
+
+// Netlify Forms requires form detection to be enabled in the Netlify dashboard.
+// On GitHub Pages/local preview, prepare an email without claiming it was sent.
+const contactNetlify = location.hostname.endsWith(".netlify.app");
 if (contactForm && contactSubmitButton) {
+    if (!contactNetlify) {
+        contactSubmitButton.textContent = "Préparer mon email";
+        document.getElementById("contactHelp").textContent = "Ce formulaire ouvre votre application de messagerie. Vous pourrez y vérifier et envoyer votre message.";
+    }
     contactForm.addEventListener("submit", async event => {
         event.preventDefault();
+        if (!contactForm.reportValidity()) return;
+        const donnees = new FormData(contactForm);
+        if (!contactNetlify) {
+            const sujet = encodeURIComponent(`Contact portfolio — ${donnees.get("name")}`);
+            const corps = encodeURIComponent(`Nom : ${donnees.get("name")}\nEmail : ${donnees.get("email")}\n\n${donnees.get("message")}`);
+            location.href = `mailto:dorinpatinvoh@gmail.com?subject=${sujet}&body=${corps}`;
+            afficherStatut(contactFormStatus, "Votre message est préparé dans votre messagerie. Cliquez sur Envoyer dans celle-ci. Si rien ne s’ouvre, écrivez à dorinpatinvoh@gmail.com.", "info");
+            return;
+        }
         contactSubmitButton.disabled = true;
         contactSubmitButton.textContent = "Envoi en cours…";
-
         try {
-            const reponse = await fetch(contactForm.action, {
-                method: contactForm.method,
-                body: new FormData(contactForm),
-                headers: { Accept: "application/json" }
+            const reponse = await fetch("/", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(donnees).toString()
             });
-
-            if (reponse.ok) {
-                afficherStatut(contactFormStatus, "✓ Message envoyé avec succès ! Je vous répondrai rapidement.", "success");
-                contactForm.reset();
-            } else {
-                afficherStatut(contactFormStatus, "Une erreur est survenue lors de l’envoi. Vérifiez la configuration du formulaire.", "error");
-            }
+            if (!reponse.ok) throw new Error("Envoi refusé");
+            afficherStatut(contactFormStatus, "Message transmis. Merci, je vous répondrai dès que possible.", "success");
+            contactForm.reset();
         } catch {
-            afficherStatut(contactFormStatus, "Erreur de connexion. Réessayez plus tard.", "error");
+            afficherStatut(contactFormStatus, "Le message n’a pas pu être envoyé. Réessayez ou écrivez à dorinpatinvoh@gmail.com.", "error");
         } finally {
             contactSubmitButton.disabled = false;
             contactSubmitButton.textContent = "Envoyer le message";
         }
     });
 }
+
+const liensNavigation = [...document.querySelectorAll(".nav-links a")];
+const sectionsNavigation = [...document.querySelectorAll("main > section[id]")];
+const retourEnHaut = document.querySelector(".back-to-top");
+let miseAJourNavigation = false;
+function actualiserNavigation() {
+    const sectionActive = [...sectionsNavigation].reverse().find(section => section.getBoundingClientRect().top <= 140) || sectionsNavigation[0];
+    liensNavigation.forEach(lien => {
+        const actif = sectionActive && lien.hash === `#${sectionActive.id}`;
+        lien.classList.toggle("is-active", Boolean(actif));
+        if (actif) lien.setAttribute("aria-current", "location");
+        else lien.removeAttribute("aria-current");
+    });
+    if (retourEnHaut) retourEnHaut.hidden = window.scrollY < 600;
+    miseAJourNavigation = false;
+}
+window.addEventListener("scroll", () => {
+    if (!miseAJourNavigation) {
+        miseAJourNavigation = true;
+        requestAnimationFrame(actualiserNavigation);
+    }
+}, {passive:true});
+actualiserNavigation();
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && navLinks?.classList.contains("active")) {
+        basculerMenu();
+        burger.focus();
+    }
+});

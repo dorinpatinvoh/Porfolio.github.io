@@ -786,3 +786,47 @@ footer {
 .projet-carte:hover .projet-image-wrap img {
     transform: scale(1.05); /* Petit effet de zoom au survol */
 }
+/* Reading, keyboard navigation and small screens */
+[hidden] { display: none !important; }
+:root { --text-mut: #526079; --primary: #4f46e5; }
+section[id] { scroll-margin-top: 90px; }
+a:focus-visible, button:focus-visible, summary:focus-visible, [role="button"]:focus-visible { outline: 3px solid #4f46e5; outline-offset: 5px; }
+.skip-link { position: fixed; top: -80px; left: 16px; z-index: 2000; background: white; padding: 12px; }
+.skip-link:focus { top: 10px; }
+.nav-links a.is-active { color: var(--primary); background: #eef2ff; }
+.cta-buttons, .projet-liens { flex-wrap: wrap; }
+.hero-text, .a-propos-texte { min-width: 0; }
+.hero-content { padding-left: 24px; padding-right: 24px; }
+.hero-text .terminal-line { font-family: monospace; font-size: .92rem; color: #4338ca; }
+.back-to-top { position: fixed; right: 18px; bottom: 18px; border-radius: 50%; background: #312e81; color: white; width: 44px; height: 44px; text-align: center; line-height: 44px; text-decoration: none; z-index: 900; }
+.case-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+.case-card { background: white; padding: 28px; border: 1px solid var(--card-border); border-radius: 14px; }
+.case-card h3 { margin-bottom: 20px; font-size: 1.35rem; }
+.case-card h4 { margin: 20px 0 6px; }
+.case-card p { color: var(--text-mut); }
+.case-card a { display: inline-block; margin-top: 20px; color: #4338ca; }
+.architecture { list-style-position: inside; padding: 16px; background: #eef2ff; border-radius: 10px; margin-top: 18px; }
+.architecture li + li { margin-top: 8px; }
+.contact-info a { overflow-wrap: anywhere; min-width: 0; }
+.form-status { margin-top: 12px; }
+.is-error { color: #b91c1c; }
+.is-success { color: #166534; }
+#contactHelp { margin-bottom: 20px; }
+.gestion-panel { margin-top: 24px; }
+@media (max-width: 860px) {
+  .nav-links { display: none; transform: none; visibility: hidden; pointer-events: none; }
+  .nav-links.active { display: flex; visibility: visible; pointer-events: auto; }
+  .case-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .hero-text h1 { font-size: clamp(2rem, 9vw, 2.8rem); letter-spacing: -1px; }
+  .hero-content { padding-left: 18px; padding-right: 18px; }
+  .badge-dispo { white-space: normal; font-size: .75rem; }
+  .contact-info, .case-card { padding: 22px; }
+  .hero-image img { width: 240px; height: 240px; }
+  .nav-links { width: 100%; padding: 28px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

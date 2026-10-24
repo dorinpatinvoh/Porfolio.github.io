@@ -1,0 +1,234 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Éditeur local du portfolio</title><link rel="stylesheet" href="css/style.css"></head><body data-editor="true"><main class="container section"><a href="index.html">← Retour au portfolio</a><h1>Éditeur local</h1><p>Cet outil modifie uniquement ce navigateur. Il ne donne aucun accès au dépôt ni au serveur. Exportez le JSON pour publier vos changements.</p><details
+            class="gestion-panel"
+            id="gestionProjets"
+            open
+          >
+            <summary>
+              <span
+                ><i class="fas fa-folder-plus" aria-hidden="true"></i> Gérer mes
+                projets et mes compétences</span
+              >
+              <span class="gestion-summary-note">sur ce navigateur</span>
+            </summary>
+            <div class="gestion-contenu">
+              <p class="gestion-intro">
+                Ajoute une capture, une description, tes technologies et le lien
+                GitHub du projet.
+              </p>
+
+              <div class="gestion-notice" role="note">
+                <i class="fas fa-circle-info" aria-hidden="true"></i>
+                <p>
+                  <strong>Publication Netlify :</strong> télécharge la
+                  sauvegarde JSON, remplace <code>portfolio-data.json</code> à
+                  la racine de ton dépôt GitHub et valide le commit pour
+                  déployer les modifications.
+                </p>
+              </div>
+
+              <form id="projectForm" class="gestion-form">
+                <div class="gestion-grille">
+                  <div class="form-group">
+                    <label for="projectTitle"
+                      >Nom du projet <span aria-hidden="true">*</span></label
+                    >
+                    <input
+                      id="projectTitle"
+                      name="titre"
+                      type="text"
+                      maxlength="80"
+                      placeholder="Ex. SIGCF"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="projectRole">Ton rôle</label>
+                    <input
+                      id="projectRole"
+                      name="role"
+                      type="text"
+                      maxlength="80"
+                      placeholder="Ex. Développeur Full Stack"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="projectCategory">Catégorie</label>
+                    <select id="projectCategory" name="categorie">
+                      <option value="Fullstack">Fullstack</option>
+                      <option value="Frontend">Frontend</option>
+                      <option value="Backend">Backend / API</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="projectTechnologies">Technologies</label>
+                    <input
+                      id="projectTechnologies"
+                      name="technologies"
+                      type="text"
+                      maxlength="160"
+                      placeholder="Ex. Angular 17, Spring Boot 3, PostgreSQL"
+                    />
+                    <small>Sépare-les par des virgules.</small>
+                  </div>
+                  <div class="form-group gestion-largeur-complete">
+                    <label for="projectDescription"
+                      >Description <span aria-hidden="true">*</span></label
+                    >
+                    <textarea
+                      id="projectDescription"
+                      name="description"
+                      rows="4"
+                      maxlength="800"
+                      placeholder="Quel problème le projet résout-il ? Qu'as-tu réalisé ?"
+                      required
+                    ></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="projectGithub"
+                      >Lien GitHub <span aria-hidden="true">*</span></label
+                    >
+                    <input
+                      id="projectGithub"
+                      name="github"
+                      type="url"
+                      inputmode="url"
+                      placeholder="https://github.com/dorinpatinvoh/nom-projet"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="projectDemo"
+                      >Lien de démonstration
+                      <span class="label-optionnel">(facultatif)</span></label
+                    >
+                    <input
+                      id="projectDemo"
+                      name="demo"
+                      type="url"
+                      inputmode="url"
+                      placeholder="https://mon-projet.netlify.app"
+                    />
+                  </div>
+                  <div class="form-group gestion-largeur-complete">
+                    <label for="projectImage"
+                      >Photo / capture du projet
+                      <span aria-hidden="true">*</span></label
+                    >
+                    <input
+                      id="projectImage"
+                      name="image"
+                      type="file"
+                      accept="image/png,image/jpeg,image/webp"
+                      required
+                    />
+                    <small>JPG, PNG ou WebP.</small>
+                    <div class="image-preview" id="imagePreview" hidden>
+                      <img
+                        id="imagePreviewImg"
+                        src=""
+                        alt="Aperçu de l’image sélectionnée"
+                      />
+                      <span>Aperçu de l’image sélectionnée</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="gestion-form-actions">
+                  <button
+                    class="btn btn-primary"
+                    type="submit"
+                    id="addProjectButton"
+                  >
+                    <i class="fas fa-plus" aria-hidden="true"></i> Ajouter à mes
+                    projets
+                  </button>
+                  <p
+                    id="projectFormStatus"
+                    class="form-status"
+                    role="status"
+                    aria-live="polite"
+                  ></p>
+                </div>
+              </form>
+
+              <div class="gestion-skill-manager">
+                <div class="gestion-skill-heading">
+                  <h3>Gérer mes compétences</h3>
+                  <p>
+                    Gère la liste des technologies affichée dans la section « À
+                    propos ».
+                  </p>
+                </div>
+                <div
+                  class="skills-chips skills-chips-editor"
+                  id="manageSkillsList"
+                  aria-label="Gérer les compétences"
+                ></div>
+                <form id="skillForm" class="skill-form">
+                  <label for="skillInput">Ajouter une compétence</label>
+                  <div class="skill-add-row">
+                    <input
+                      id="skillInput"
+                      name="skill"
+                      type="text"
+                      maxlength="40"
+                      placeholder="Ex. Spring Security"
+                      autocomplete="off"
+                      required
+                    />
+                    <button class="btn btn-primary" type="submit">
+                      <i class="fas fa-plus" aria-hidden="true"></i> Ajouter
+                    </button>
+                  </div>
+                  <p class="skill-help">
+                    Enregistré dans le stockage local du navigateur.
+                  </p>
+                  <p
+                    id="skillFormStatus"
+                    class="form-status"
+                    role="status"
+                    aria-live="polite"
+                  ></p>
+                </form>
+              </div>
+
+              <div class="gestion-sauvegarde">
+                <div>
+                  <h3>Sauvegarder ou restaurer</h3>
+                  <p>
+                    Télécharge le fichier <code>portfolio-data.json</code> pour
+                    pousser tes changements sur GitHub et Netlify.
+                  </p>
+                </div>
+                <div class="gestion-actions">
+                  <button
+                    class="btn btn-secondary"
+                    type="button"
+                    id="exportDataButton"
+                  >
+                    <i class="fas fa-download" aria-hidden="true"></i>
+                    Télécharger la sauvegarde
+                  </button>
+                  <button
+                    class="btn btn-secondary"
+                    type="button"
+                    id="importDataButton"
+                  >
+                    <i class="fas fa-upload" aria-hidden="true"></i> Importer
+                    une sauvegarde
+                  </button>
+                  <input
+                    id="importDataFile"
+                    type="file"
+                    accept=".json,application/json"
+                    hidden
+                  />
+                </div>
+                <p
+                  id="backupStatus"
+                  class="form-status gestion-largeur-complete"
+                  role="status"
+                  aria-live="polite"
+                ></p>
+              </div>
+            </div>
+          </details><h2>Aperçu des projets ajoutés</h2><div id="projetsGrid" class="projets-grid"></div></main><script src="js/script.js"></script></body></html>
